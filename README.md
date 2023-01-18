@@ -13,5 +13,5 @@
 ### 개발환경
 
 - python3.11.1
-- Wsl - Docker - Ubuntu20.04
+- Wsl - Docker - Ubuntu22.04
 - TODO
