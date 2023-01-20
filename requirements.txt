@@ -6,3 +6,6 @@ cookiecutter==2.1.1
 oyaml==1.0
 pydantic[email]==1.10.4
 python-dotenv==0.21.0
+python-jose==3.3.0
+SQLAlchemy==1.4.46
+psycopg2==2.9.5
