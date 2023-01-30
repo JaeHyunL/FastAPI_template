@@ -37,6 +37,7 @@ class Settings(BaseSettings):
     POSTGRES_DB: str
     SQLALCHEMY_DATABASE_URI: PostgresDsn | None = None
 
+
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
     def assemble_db_connection(cls, v: str | None, values: dict[str, any]) -> any:
         if isinstance(v, str):
@@ -44,6 +45,7 @@ class Settings(BaseSettings):
         return PostgresDsn.build(
             scheme="postgresql",
             user=values.get("POSTGRES_USER"),
+            port="5433",
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_SERVER"),
             path=f"/{values.get('POSTGRES_DB') or ''}",

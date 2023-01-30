@@ -11,8 +11,12 @@ Base = declarative_base()
 
 
 def init_db(db: Session) -> None:
+
     Base.metadata.create_all(bind=session.engine)
+    print("워워어어어", Base.metadata, session.engine)
     user = crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER)
+
+    print("22")
     if not user:
         user_in = schemas.UserCreate(
             email=settings.FIRST_SUPERUSER,
@@ -20,3 +24,4 @@ def init_db(db: Session) -> None:
             is_superuser=True,
         )
         user = crud.user.create(db, obj_in=user_in)
+    print("33")
