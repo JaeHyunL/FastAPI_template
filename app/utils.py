@@ -19,3 +19,12 @@ def generate_password_rest_token(email: str) -> str:
     )
     return encoded_jwt
 
+
+def verify_password_reset_token(token: str) -> str:
+    try:
+        decode_token = jwt.decode(token, settings.SECRET_KEY, algorithm=["HS256"])
+        return decode_token["email"]
+    except jwt.JWTError:
+        return None
+
+
