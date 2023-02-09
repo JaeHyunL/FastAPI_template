@@ -34,3 +34,8 @@ class User(UserInDBase):
 # DB에 저장된 속성을 추가.
 class UserInDB(UserInDBase):
     hashed_password: str
+
+
+class KaKaoTemplate(UserBase):
+    access_token: str
+    refresh_token: str

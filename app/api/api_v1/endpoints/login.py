@@ -1,7 +1,9 @@
+import requests
 from datetime import timedelta
 from typing import Any
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -50,3 +52,35 @@ def test_token(current_user: models.User = Depends(deps.get_current_user)) -> an
     return current_user
 
 
+@router.get("/oauth/kakao/login")
+def kakao_oauth_login_action(code):
+    """
+    소셜로그인 카카오 토큰 발행
+
+    카카오 로그인세션 인가코드 -> 토큰 발행
+
+    Args:
+        code: 클라이언트에서 발급받은 인가 코드
+
+    Returns:
+        _type_: TODO
+    """
+    CLIENT_ID = settings.KAKAO_OAUTH_CLIENT_ID
+    REDIRECT_URI = settings.KAKAO_OAUTH_REDIRECT_URL
+    oAuthTokenRequestUrl = "https://kauth.kakao.com/oauth/token?"
+    payload = f"grant_type=authorization_code&client_id={CLIENT_ID}"
+    payload += f"&redirect_uri={REDIRECT_URI}&code={code}"
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Cache-Control": "no-cache"
+    }
+    tokenRequestURL_Join_PayLoad = oAuthTokenRequestUrl + payload
+
+    response_token = requests.get(tokenRequestURL_Join_PayLoad, headers=headers)
+
+    return response_token.json()
+
+
+@router.get("/oauth/kakao/redirect")
+def request_access_token_for_kakao(response):
+    pass
