@@ -39,3 +39,24 @@ class UserInDB(UserInDBase):
 class KaKaoTemplate(UserBase):
     access_token: str
     refresh_token: str
+
+
+class Kakao_account(BaseModel):
+    age_range: str
+    age_range_needs_agreement: bool
+    birthday: str
+    birthday_needs_agreement: bool
+    birthday_type: str
+    email: str
+    email_needs_agreement: bool
+    gender: str
+    gender_needs_agreement: bool
+    has_age_range: bool
+    has_birthday: bool
+    has_email: bool
+    has_gender: bool
+    is_email_valid: bool
+    is_email_verified: bool
+    profile: dict | str
+    profile_image_needs_agreement: bool
+    profile_nickname_needs_agreement: bool

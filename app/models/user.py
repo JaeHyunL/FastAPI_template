@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
@@ -17,3 +17,16 @@ class User(Base):
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False)
     items = relationship("Item", back_populates="owner")
+    kauth_id = relationship("KakaoAccount", back_populates='kauth')
+
+
+class KakaoAccount(Base):
+
+    id = Column(Integer, primary_key=True, index=True)
+    age_arange = Column(String)
+    birth_day = Column(String)
+    email = Column(String)
+    gender = Column(String)
+    profile = Column(String)
+    user_id = Column(Integer, ForeignKey("user.id"))
+    kauth = relationship("User", back_populates="kauth_id")
